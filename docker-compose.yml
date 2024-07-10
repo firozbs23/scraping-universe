@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  scraping-universe:
+    build:
+      context: .
+    ports:
+      - "8080:8082"
+    restart: always
+    depends_on:
+      - db
+    networks:
+      - scraping-universe
+
+  db:
+    image: postgres:latest
+    container_name: db
+    environment:
+      POSTGRES_DB: spring_batch_db
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5431"
+    restart: always
+    networks:
+      - scraping-universe
+
+networks:
+  app-network:
+    driver: bridge
