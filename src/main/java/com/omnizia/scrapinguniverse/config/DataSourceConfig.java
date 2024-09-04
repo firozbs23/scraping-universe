@@ -93,8 +93,8 @@ public class DataSourceConfig {
   @Bean(name = "dataSource")
   public DataSource dataSource() {
     DriverManagerDataSource dataSource = new DriverManagerDataSource();
-    // dataSource.setUrl("jdbc:postgresql://scraping-job-config-db:5432/spring_batch_db");
-    dataSource.setUrl("jdbc:postgresql://localhost:5434/spring_batch_db");
+    dataSource.setUrl("jdbc:postgresql://scraping-job-config-db:5432/spring_batch_db");
+    // dataSource.setUrl("jdbc:postgresql://localhost:5434/spring_batch_db");
     dataSource.setUsername("username");
     dataSource.setPassword("password");
     dataSource.setDriverClassName("org.postgresql.Driver");
