@@ -5,10 +5,7 @@ import com.omnizia.scrapinguniverse.dto.HcpDto;
 import com.omnizia.scrapinguniverse.service.HcpService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,9 +14,11 @@ public class HcpController {
   private final HcpService hcpService;
 
   @GetMapping("/hcp")
-  public ResponseEntity<HcpDto> getHcpByOmniziaId(@RequestParam("omnizia_id") String omniziaId) {
+  public ResponseEntity<HcpDto> getHcpByOmniziaId(
+      @RequestParam("omnizia_id") String omniziaId,
+      @RequestHeader(value = "omnizia-tenant", defaultValue = "") String tenant) {
     try {
-      DataSourceContextHolder.setDataSourceType("springworks");
+      DataSourceContextHolder.setDataSourceType(tenant.toLowerCase());
       var data = hcpService.getHcpByOmniziaId(omniziaId);
       return ResponseEntity.ok(data);
     } finally {

@@ -19,14 +19,17 @@ public class TrackAndTraceController {
   private final JobLauncherService jobLauncherService;
 
   @PostMapping("/hcp/check/status")
-  public ResponseEntity<?> statusCheck(@RequestBody Object requestBody) {
+  public ResponseEntity<?> statusCheck(
+      @RequestBody Object requestBody,
+      @RequestHeader(value = "omnizia-tenant", defaultValue = "") String tenant) {
     log.info("Hit endpoint /hcp/check/status");
     var data = trackAndTraceService.getStatus(requestBody);
     return ResponseEntity.ok(data);
   }
 
   @GetMapping("/hcp/start/job")
-  public ResponseEntity<?> startJob() {
+  public ResponseEntity<?> startJob(
+      @RequestHeader(value = "omnizia-tenant", defaultValue = "") String tenant) {
     log.info("Hit endpoint /hcp/start/job");
     String jobId = UUID.randomUUID().toString();
     jobLauncherService.runJob(jobId);

@@ -19,9 +19,10 @@ public class DigitalFootprintsController {
   private final DigitalFootprintsService digitalFootprintsService;
 
   @GetMapping("/digital-footprints")
-  public ResponseEntity<List<DigitalFootprintDto>> getDigitalFootprints() {
+  public ResponseEntity<List<DigitalFootprintDto>> getDigitalFootprints(
+      @RequestHeader(value = "omnizia-tenant", defaultValue = "") String tenant) {
     try {
-      DataSourceContextHolder.setDataSourceType("olam");
+      DataSourceContextHolder.setDataSourceType(tenant.toLowerCase());
       log.info("Getting digital footprints. Endpoint: /api/v2/digital-footprints");
       List<DigitalFootprintDto> digitalFootprintDtos =
           digitalFootprintsService.getDigitalFootprintsDto();
@@ -39,9 +40,10 @@ public class DigitalFootprintsController {
   @PutMapping("/digital-footprints")
   public ResponseEntity<String> updateDigitalFootprints(
       @RequestBody List<DigitalFootprintDto> digitalFootprintDtos,
-      @RequestParam(name = "job_id", required = false) String jobId) {
+      @RequestParam(name = "job_id", required = false) String jobId,
+      @RequestHeader(value = "omnizia-tenant", defaultValue = "") String tenant) {
     try {
-      DataSourceContextHolder.setDataSourceType("olam");
+      DataSourceContextHolder.setDataSourceType(tenant.toLowerCase());
       log.info("Updating digital footprints. Endpoint: /api/v2/digital-footprints");
       digitalFootprintsService.updateDigitalFootprints(digitalFootprintDtos, jobId);
       return ResponseEntity.ok("Data updated");

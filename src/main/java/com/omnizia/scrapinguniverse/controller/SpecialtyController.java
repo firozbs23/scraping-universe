@@ -16,9 +16,10 @@ public class SpecialtyController {
   private final SpecialtyService specialtyService;
 
   @GetMapping("/specialties")
-  public ResponseEntity<List<SpecialtyDto>> getSpecialties() {
+  public ResponseEntity<List<SpecialtyDto>> getSpecialties(
+      @RequestHeader(value = "omnizia-tenant", defaultValue = "") String tenant) {
     try {
-      DataSourceContextHolder.setDataSourceType("springworks");
+      DataSourceContextHolder.setDataSourceType(tenant.toLowerCase());
       List<SpecialtyDto> data = specialtyService.getSpecialties();
       return ResponseEntity.ok(data);
     } finally {
@@ -28,9 +29,10 @@ public class SpecialtyController {
 
   @GetMapping("/specialty")
   public ResponseEntity<SpecialtyDto> getSpecialtyByCode(
-      @RequestParam("specialty_code") String specialtyCode) {
+      @RequestParam("specialty_code") String specialtyCode,
+      @RequestHeader(value = "omnizia-tenant", defaultValue = "") String tenant) {
     try {
-      DataSourceContextHolder.setDataSourceType("springworks");
+      DataSourceContextHolder.setDataSourceType(tenant.toLowerCase());
       SpecialtyDto data = specialtyService.getSpecialtyByCode(specialtyCode);
       return ResponseEntity.ok(data);
     } finally {
@@ -40,9 +42,10 @@ public class SpecialtyController {
 
   @GetMapping("/specialties/by-code")
   public ResponseEntity<List<SpecialtyDto>> getSpecialtyByCodes(
-      @RequestParam("specialty_codes") String specialtyCodes) {
+      @RequestParam("specialty_codes") String specialtyCodes,
+      @RequestHeader(value = "omnizia-tenant", defaultValue = "") String tenant) {
     try {
-      DataSourceContextHolder.setDataSourceType("springworks");
+      DataSourceContextHolder.setDataSourceType(tenant.toLowerCase());
       List<SpecialtyDto> data = specialtyService.getSpecialtiesByCodes(specialtyCodes);
       return ResponseEntity.ok(data);
     } finally {

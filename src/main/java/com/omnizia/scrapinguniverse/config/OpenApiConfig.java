@@ -20,6 +20,9 @@ public class OpenApiConfig {
                 .description("This API is used for fuzzy matching"))
         .servers(
             List.of(
-                new Server().url("https://fuzzy-matching.bscdp.com").description("Dev server")));
+                new Server()
+                    // .url("https://fuzzy-matching.bscdp.com")
+                    .url("http://localhost:8080")
+                    .description("Dev server")));
   }
 }

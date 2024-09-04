@@ -66,11 +66,35 @@ public class DataSourceConfig {
     return dataSource;
   }
 
+  @Bean(name = "brainstation")
+  public DataSource dataSource4() {
+    DriverManagerDataSource dataSource = new DriverManagerDataSource();
+    dataSource.setUrl(
+        "jdbc:postgresql://ls-e7500498eb7cca7cb3501ee037e5841634bfe0d3.cngn4h200lce.eu-central-1.rds.amazonaws.com:5432/crdlp_dev");
+    dataSource.setUsername("cdp_dev_user");
+    dataSource.setPassword("PhAL5XwyWm");
+    dataSource.setSchema("gds");
+    dataSource.setDriverClassName("org.postgresql.Driver");
+    return dataSource;
+  }
+
+  @Bean(name = "recordati")
+  public DataSource dataSource5() {
+    DriverManagerDataSource dataSource = new DriverManagerDataSource();
+    dataSource.setUrl(
+        "jdbc:postgresql://ls-e7500498eb7cca7cb3501ee037e5841634bfe0d3.cngn4h200lce.eu-central-1.rds.amazonaws.com:5432/crdlp_dev");
+    dataSource.setUsername("cdp_dev_user");
+    dataSource.setPassword("PhAL5XwyWm");
+    dataSource.setSchema("gds");
+    dataSource.setDriverClassName("org.postgresql.Driver");
+    return dataSource;
+  }
+
   @Bean(name = "dataSource")
   public DataSource dataSource() {
     DriverManagerDataSource dataSource = new DriverManagerDataSource();
-    dataSource.setUrl("jdbc:postgresql://scraping-job-config-db:5432/spring_batch_db");
-    // dataSource.setUrl("jdbc:postgresql://localhost:5433/spring_batch_db");
+    // dataSource.setUrl("jdbc:postgresql://scraping-job-config-db:5432/spring_batch_db");
+    dataSource.setUrl("jdbc:postgresql://localhost:5434/spring_batch_db");
     dataSource.setUsername("username");
     dataSource.setPassword("password");
     dataSource.setDriverClassName("org.postgresql.Driver");
@@ -95,6 +119,8 @@ public class DataSourceConfig {
       @Qualifier("mcd") DataSource dataSource1,
       @Qualifier("olam") DataSource dataSource2,
       @Qualifier("springworks") DataSource dataSource3,
+      @Qualifier("brainstation") DataSource dataSource4,
+      @Qualifier("recordati") DataSource dataSource5,
       @Qualifier("dataSource") DataSource batchJob) {
     AbstractRoutingDataSource routingDataSource =
         new AbstractRoutingDataSource() {
@@ -108,10 +134,12 @@ public class DataSourceConfig {
     dataSourceMap.put("mcd", dataSource1);
     dataSourceMap.put("olam", dataSource2);
     dataSourceMap.put("springworks", dataSource3);
+    dataSourceMap.put("brainstation", dataSource4);
+    dataSourceMap.put("recordati", dataSource5);
     dataSourceMap.put("dataSource", batchJob);
 
     routingDataSource.setTargetDataSources(dataSourceMap);
-    routingDataSource.setDefaultTargetDataSource(dataSource1);
+    routingDataSource.setDefaultTargetDataSource(batchJob);
 
     return routingDataSource;
   }

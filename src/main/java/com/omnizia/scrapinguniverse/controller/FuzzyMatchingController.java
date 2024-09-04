@@ -20,9 +20,10 @@ public class FuzzyMatchingController {
 
   @PostMapping("/hcp/search/fuzzy")
   public ResponseEntity<HcpResponseDto> searchHcpByFuzzyMatch(
-      @Valid @RequestBody HcpRequestDto hcpDto) {
+      @Valid @RequestBody HcpRequestDto hcpDto,
+      @RequestHeader(value = "omnizia-tenant", defaultValue = "") String tenant) {
     try {
-      DataSourceContextHolder.setDataSourceType("springworks");
+      DataSourceContextHolder.setDataSourceType(tenant.toLowerCase());
       log.debug("Hit endpoint : /hcp/search/fuzzy");
       HcpResponseDto data = fuzzyMatchingService.findHcpByFuzzyMatching2(hcpDto);
       return ResponseEntity.ok(data);
@@ -33,9 +34,10 @@ public class FuzzyMatchingController {
 
   @PostMapping("/fuzzy-match")
   public ResponseEntity<String> fuzzyMatchBetweenTexts(
-      @Valid @RequestBody TextMatchingDto textMatchingDto) {
+      @Valid @RequestBody TextMatchingDto textMatchingDto,
+      @RequestHeader(value = "omnizia-tenant", defaultValue = "") String tenant) {
     try {
-      DataSourceContextHolder.setDataSourceType("mcd");
+      DataSourceContextHolder.setDataSourceType(tenant.toLowerCase());
       String data = fuzzyMatchingService.fuzzyMatchRatio(textMatchingDto);
       return ResponseEntity.ok(data);
     } finally {
