@@ -1,0 +1,50 @@
+# Use OpenJDK 21 slim as the base image
+FROM openjdk:21-slim
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Install dependencies for Chrome
+RUN apt-get update && apt-get install -y \
+    wget \
+    gnupg \
+    unzip \
+    libasound2 \
+    libatk-bridge2.0-0 \
+    libatk1.0-0 \
+    libcups2 \
+    libdrm2 \
+    libxrandr2 \
+    libxss1 \
+    xdg-utils \
+    fonts-liberation \
+    libappindicator3-1 \
+    libgbm-dev \
+    libxshmfence1 \
+    libu2f-udev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Download and install Chrome browser from zip file
+RUN wget -O /app/chrome-linux64.zip "https://storage.googleapis.com/chrome-for-testing-public/127.0.6533.119/linux64/chrome-linux64.zip" \
+    && unzip /app/chrome-linux64.zip  \
+    && chmod +x /app/chrome-linux64/chrome \
+    && rm /app/chrome-linux64.zip
+
+# Download and set up ChromeDriver
+RUN wget -O /app/chromedriver-linux64.zip "https://storage.googleapis.com/chrome-for-testing-public/127.0.6533.119/linux64/chromedriver-linux64.zip" \
+    && unzip /app/chromedriver-linux64.zip  \
+    && chmod +x /app/chromedriver-linux64/chromedriver \
+    && rm /app/chromedriver-linux64.zip
+
+
+# Add Chrome and ChromeDriver to PATH
+ENV PATH="/app/chrome-linux64/chrome:/app/chromedriver-linux64/chromedriver:$PATH"
+
+# Copy the JAR file into the app directory
+COPY target/scraping-universe-0.0.1-SNAPSHOT.jar app.jar
+
+# Expose the port your Spring Boot application uses
+EXPOSE 8080
+
+# Set the entry point to run the Spring Boot application
+ENTRYPOINT ["java", "-jar", "app.jar"]

@@ -18,7 +18,7 @@ public class SpecialtyController {
   @GetMapping("/specialties")
   public ResponseEntity<List<SpecialtyDto>> getSpecialties() {
     try {
-      DataSourceContextHolder.setDataSourceType("mcd");
+      DataSourceContextHolder.setDataSourceType("springworks");
       List<SpecialtyDto> data = specialtyService.getSpecialties();
       return ResponseEntity.ok(data);
     } finally {
@@ -30,7 +30,7 @@ public class SpecialtyController {
   public ResponseEntity<SpecialtyDto> getSpecialtyByCode(
       @RequestParam("specialty_code") String specialtyCode) {
     try {
-      DataSourceContextHolder.setDataSourceType("mcd");
+      DataSourceContextHolder.setDataSourceType("springworks");
       SpecialtyDto data = specialtyService.getSpecialtyByCode(specialtyCode);
       return ResponseEntity.ok(data);
     } finally {
@@ -42,7 +42,7 @@ public class SpecialtyController {
   public ResponseEntity<List<SpecialtyDto>> getSpecialtyByCodes(
       @RequestParam("specialty_codes") String specialtyCodes) {
     try {
-      DataSourceContextHolder.setDataSourceType("mcd");
+      DataSourceContextHolder.setDataSourceType("springworks");
       List<SpecialtyDto> data = specialtyService.getSpecialtiesByCodes(specialtyCodes);
       return ResponseEntity.ok(data);
     } finally {

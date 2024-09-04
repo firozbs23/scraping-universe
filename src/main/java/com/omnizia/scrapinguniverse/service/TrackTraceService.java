@@ -39,7 +39,12 @@ public class TrackTraceService {
       for (Object item : requestBodyList) {
         String hcpName = ((LinkedHashMap<?, ?>) item).get(HCP_NAME).toString();
         String hcpWebsite = ((LinkedHashMap<?, ?>) item).get(HCP_WEBSITE).toString();
-        String dftId = ((LinkedHashMap<?, ?>) item).get(DFT_ID).toString();
+        String dftId;
+        try{
+           dftId = ((LinkedHashMap<?, ?>) item).get(DFT_ID).toString();
+        }catch (NullPointerException e){
+          dftId = "";
+        }
 
         TrackTraceDto traceDto =
             TrackTraceDto.builder().hcpName(hcpName).hcpWebsite(hcpWebsite).dftId(dftId).build();
@@ -141,6 +146,7 @@ public class TrackTraceService {
 
     if (!trace.getStatus().equals("Found")) { // If not found in first approach
       boolean isPresent = webDriverService.isTextPresent(trace.getHcpWebsite(), trace.getHcpName());
+
       if (isPresent) trace.setStatus("Found");
     }
 

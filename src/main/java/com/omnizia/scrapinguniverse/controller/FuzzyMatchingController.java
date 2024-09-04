@@ -22,7 +22,7 @@ public class FuzzyMatchingController {
   public ResponseEntity<HcpResponseDto> searchHcpByFuzzyMatch(
       @Valid @RequestBody HcpRequestDto hcpDto) {
     try {
-      DataSourceContextHolder.setDataSourceType("mcd");
+      DataSourceContextHolder.setDataSourceType("springworks");
       log.debug("Hit endpoint : /hcp/search/fuzzy");
       HcpResponseDto data = fuzzyMatchingService.findHcpByFuzzyMatching2(hcpDto);
       return ResponseEntity.ok(data);

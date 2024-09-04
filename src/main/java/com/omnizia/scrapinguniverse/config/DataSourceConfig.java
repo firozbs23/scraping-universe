@@ -54,11 +54,23 @@ public class DataSourceConfig {
     return dataSource;
   }
 
+  @Bean(name = "springworks")
+  public DataSource dataSource3() {
+    DriverManagerDataSource dataSource = new DriverManagerDataSource();
+    dataSource.setUrl(
+        "jdbc:postgresql://ls-4a50e17e2bb977d7821902c0814979441b391918.cngn4h200lce.eu-central-1.rds.amazonaws.com:5432/springworks_crdlp");
+    dataSource.setUsername("omnizia_user");
+    dataSource.setPassword("zXN!n!kAWA2mlL6S");
+    dataSource.setSchema("gds");
+    dataSource.setDriverClassName("org.postgresql.Driver");
+    return dataSource;
+  }
+
   @Bean(name = "dataSource")
   public DataSource dataSource() {
     DriverManagerDataSource dataSource = new DriverManagerDataSource();
-    // dataSource.setUrl("jdbc:postgresql://localhost:5431/spring_batch_db");
-    dataSource.setUrl("jdbc:postgresql://35.158.3.137:80/spring_batch_db");
+    dataSource.setUrl("jdbc:postgresql://scraping-job-config-db:5432/spring_batch_db");
+    // dataSource.setUrl("jdbc:postgresql://localhost:5433/spring_batch_db");
     dataSource.setUsername("username");
     dataSource.setPassword("password");
     dataSource.setDriverClassName("org.postgresql.Driver");
@@ -82,6 +94,7 @@ public class DataSourceConfig {
   public DataSource routingDataSource(
       @Qualifier("mcd") DataSource dataSource1,
       @Qualifier("olam") DataSource dataSource2,
+      @Qualifier("springworks") DataSource dataSource3,
       @Qualifier("dataSource") DataSource batchJob) {
     AbstractRoutingDataSource routingDataSource =
         new AbstractRoutingDataSource() {
@@ -94,6 +107,7 @@ public class DataSourceConfig {
     Map<Object, Object> dataSourceMap = new HashMap<>();
     dataSourceMap.put("mcd", dataSource1);
     dataSourceMap.put("olam", dataSource2);
+    dataSourceMap.put("springworks", dataSource3);
     dataSourceMap.put("dataSource", batchJob);
 
     routingDataSource.setTargetDataSources(dataSourceMap);

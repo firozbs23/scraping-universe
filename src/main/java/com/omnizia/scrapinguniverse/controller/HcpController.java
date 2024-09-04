@@ -19,7 +19,7 @@ public class HcpController {
   @GetMapping("/hcp")
   public ResponseEntity<HcpDto> getHcpByOmniziaId(@RequestParam("omnizia_id") String omniziaId) {
     try {
-      DataSourceContextHolder.setDataSourceType("mcd");
+      DataSourceContextHolder.setDataSourceType("springworks");
       var data = hcpService.getHcpByOmniziaId(omniziaId);
       return ResponseEntity.ok(data);
     } finally {
