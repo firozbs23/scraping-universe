@@ -82,9 +82,9 @@ public class DataSourceConfig {
   public DataSource dataSource5() {
     DriverManagerDataSource dataSource = new DriverManagerDataSource();
     dataSource.setUrl(
-        "jdbc:postgresql://ls-e7500498eb7cca7cb3501ee037e5841634bfe0d3.cngn4h200lce.eu-central-1.rds.amazonaws.com:5432/crdlp_dev");
-    dataSource.setUsername("cdp_dev_user");
-    dataSource.setPassword("PhAL5XwyWm");
+        "jdbc:postgresql://ls-1a861009034a415ae969ba94d7877217e61e05be.cngn4h200lce.eu-central-1.rds.amazonaws.com:5432/recordati_crdlp");
+    dataSource.setUsername("omnizia_user");
+    dataSource.setPassword("u6F@RTeK4ZVbttHo");
     dataSource.setSchema("gds");
     dataSource.setDriverClassName("org.postgresql.Driver");
     return dataSource;

@@ -22,7 +22,7 @@ public class DigitalFootprintsController {
   public ResponseEntity<List<DigitalFootprintDto>> getDigitalFootprints(
       @RequestHeader(value = "omnizia-tenant", defaultValue = "") String tenant) {
     try {
-      DataSourceContextHolder.setDataSourceType(tenant.toLowerCase());
+      DataSourceContextHolder.setDataSourceType(tenant.trim().toLowerCase());
       log.info("Getting digital footprints. Endpoint: /api/v2/digital-footprints");
       List<DigitalFootprintDto> digitalFootprintDtos =
           digitalFootprintsService.getDigitalFootprintsDto();
@@ -43,7 +43,7 @@ public class DigitalFootprintsController {
       @RequestParam(name = "job_id", required = false) String jobId,
       @RequestHeader(value = "omnizia-tenant", defaultValue = "") String tenant) {
     try {
-      DataSourceContextHolder.setDataSourceType(tenant.toLowerCase());
+      DataSourceContextHolder.setDataSourceType(tenant.trim().toLowerCase());
       log.info("Updating digital footprints. Endpoint: /api/v2/digital-footprints");
       digitalFootprintsService.updateDigitalFootprints(digitalFootprintDtos, jobId);
       return ResponseEntity.ok("Data updated");

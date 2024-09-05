@@ -19,7 +19,7 @@ public class SpecialtyController {
   public ResponseEntity<List<SpecialtyDto>> getSpecialties(
       @RequestHeader(value = "omnizia-tenant", defaultValue = "") String tenant) {
     try {
-      DataSourceContextHolder.setDataSourceType(tenant.toLowerCase());
+      DataSourceContextHolder.setDataSourceType(tenant.trim().toLowerCase());
       List<SpecialtyDto> data = specialtyService.getSpecialties();
       return ResponseEntity.ok(data);
     } finally {
@@ -32,7 +32,7 @@ public class SpecialtyController {
       @RequestParam("specialty_code") String specialtyCode,
       @RequestHeader(value = "omnizia-tenant", defaultValue = "") String tenant) {
     try {
-      DataSourceContextHolder.setDataSourceType(tenant.toLowerCase());
+      DataSourceContextHolder.setDataSourceType(tenant.trim().toLowerCase());
       SpecialtyDto data = specialtyService.getSpecialtyByCode(specialtyCode);
       return ResponseEntity.ok(data);
     } finally {
@@ -45,7 +45,7 @@ public class SpecialtyController {
       @RequestParam("specialty_codes") String specialtyCodes,
       @RequestHeader(value = "omnizia-tenant", defaultValue = "") String tenant) {
     try {
-      DataSourceContextHolder.setDataSourceType(tenant.toLowerCase());
+      DataSourceContextHolder.setDataSourceType(tenant.trim().toLowerCase());
       List<SpecialtyDto> data = specialtyService.getSpecialtiesByCodes(specialtyCodes);
       return ResponseEntity.ok(data);
     } finally {

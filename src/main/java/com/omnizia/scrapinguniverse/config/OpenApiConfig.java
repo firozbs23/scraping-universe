@@ -17,12 +17,11 @@ public class OpenApiConfig {
             new Info()
                 .title("Scraping Universe API")
                 .version("1.0")
-                .description("This API is used for fuzzy matching"))
+                .description("This API is used for fuzzy matching and Track-And-Trace"))
         .servers(
             List.of(
-                new Server()
-                    .url("https://fuzzy-matching.bscdp.com")
-                    // .url("http://localhost:8080")
-                    .description("Dev server")));
+                new Server().url("https://fuzzy-matching.omnizia.com").description("Dev server"),
+                new Server().url("https://fuzzy-matching.bscdp.com").description("Dev server"),
+                new Server().url("http://localhost:8080").description("Local server")));
   }
 }

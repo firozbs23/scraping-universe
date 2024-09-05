@@ -11,7 +11,10 @@ public class WebConfig implements WebMvcConfigurer {
   public void addCorsMappings(CorsRegistry registry) {
     registry
         .addMapping("/**")
-        .allowedOrigins("https://fuzzy-matching.bscdp.com", "http://localhost:8080")
+        .allowedOrigins(
+            "https://fuzzy-matching.bscdp.com",
+            "https://fuzzy-matching.omnizia.com",
+            "http://localhost:8080")
         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
         .allowedHeaders("*")
         .allowCredentials(true);

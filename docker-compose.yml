@@ -14,7 +14,7 @@ services:
       - scraping-network
 
   scraping-universe:
-    image: fmahmud26/scraping-universe:v2024.9.1
+    image: fmahmud26/scraping-universe:v2024.9.5
     container_name: scraping-universe
     ports:
       - "8082:8080"

@@ -18,7 +18,7 @@ public class HcpController {
       @RequestParam("omnizia_id") String omniziaId,
       @RequestHeader(value = "omnizia-tenant", defaultValue = "") String tenant) {
     try {
-      DataSourceContextHolder.setDataSourceType(tenant.toLowerCase());
+      DataSourceContextHolder.setDataSourceType(tenant.trim().toLowerCase());
       var data = hcpService.getHcpByOmniziaId(omniziaId);
       return ResponseEntity.ok(data);
     } finally {

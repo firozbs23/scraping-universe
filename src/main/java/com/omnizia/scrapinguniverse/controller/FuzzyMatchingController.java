@@ -23,7 +23,7 @@ public class FuzzyMatchingController {
       @Valid @RequestBody HcpRequestDto hcpDto,
       @RequestHeader(value = "omnizia-tenant", defaultValue = "") String tenant) {
     try {
-      DataSourceContextHolder.setDataSourceType(tenant.toLowerCase());
+      DataSourceContextHolder.setDataSourceType(tenant.trim().toLowerCase());
       log.debug("Hit endpoint : /hcp/search/fuzzy");
       HcpResponseDto data = fuzzyMatchingService.findHcpByFuzzyMatching2(hcpDto);
       return ResponseEntity.ok(data);
@@ -37,7 +37,7 @@ public class FuzzyMatchingController {
       @Valid @RequestBody TextMatchingDto textMatchingDto,
       @RequestHeader(value = "omnizia-tenant", defaultValue = "") String tenant) {
     try {
-      DataSourceContextHolder.setDataSourceType(tenant.toLowerCase());
+      DataSourceContextHolder.setDataSourceType(tenant.trim().toLowerCase());
       String data = fuzzyMatchingService.fuzzyMatchRatio(textMatchingDto);
       return ResponseEntity.ok(data);
     } finally {
